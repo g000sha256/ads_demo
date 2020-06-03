@@ -14,12 +14,14 @@ class MainActivity : Activity() {
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         val checkBoxView = findViewById<CheckBox>(R.id.check_box_view)
-        checkBoxView.setOnCheckedChangeListener { buttonView, isChecked ->
+        checkBoxView.setOnCheckedChangeListener { _, isChecked ->
             val mainApplication = application as MainApplication
+            val adsManager = mainApplication.adsManager
+            val schedulersHolder = mainApplication.schedulersHolder
             if (isChecked) {
-                recyclerView.adapter = MainAdapter(mainApplication.adsManagerWithMock, mainApplication.schedulersHolder)
+                recyclerView.adapter = MainAdapter(adsManager, schedulersHolder, useMock = true)
             } else {
-                recyclerView.adapter = MainAdapter(mainApplication.adsManagerWithGoogle, mainApplication.schedulersHolder)
+                recyclerView.adapter = MainAdapter(adsManager, schedulersHolder, useMock = false)
             }
         }
         checkBoxView.isChecked = true

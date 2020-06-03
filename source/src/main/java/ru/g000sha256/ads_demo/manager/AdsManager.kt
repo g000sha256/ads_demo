@@ -13,15 +13,18 @@ import ru.g000sha256.schedulers.SchedulersHolder
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
 
-class AdsManager(private val useMock: Boolean, private val context: Context, private val schedulersHolder: SchedulersHolder) {
+class AdsManager(private val context: Context, private val schedulersHolder: SchedulersHolder) {
 
     private val count = AtomicInteger(0)
 
-    fun load(): Single<AdItem> {
+    @Volatile
+    private var isInitialized = false
+
+    fun load(useMock: Boolean): Single<AdItem> {
         return Single
                 .create<AdItem> { if (useMock) loadFromMock(it) else loadFromGoogle(it) }
                 .subscribeOn(schedulersHolder.ioScheduler)
-                .retryWhen { it.delay(2L, TimeUnit.SECONDS, schedulersHolder.computationScheduler) }
+                .retryWhen { it.delay(1L, TimeUnit.SECONDS, schedulersHolder.computationScheduler) }
     }
 
     private fun createAdItem(): AdItem {
@@ -38,6 +41,7 @@ class AdsManager(private val useMock: Boolean, private val context: Context, pri
     }
 
     private fun loadFromMock(singleEmitter: SingleEmitter<AdItem>) {
+        if (singleEmitter.isDisposed) return
         try {
             Thread.sleep(1000L)
         } catch (interruptedException: InterruptedException) {
@@ -49,7 +53,11 @@ class AdsManager(private val useMock: Boolean, private val context: Context, pri
     }
 
     private fun loadFromGoogle(singleEmitter: SingleEmitter<AdItem>) {
-        MobileAds.initialize(context)
+        if (singleEmitter.isDisposed) return
+        if (!isInitialized) {
+            isInitialized = true
+            MobileAds.initialize(context)
+        }
         val adListener = object : AdListener() {
 
             override fun onAdFailedToLoad(errorCode: Int) {

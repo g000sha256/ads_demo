@@ -9,6 +9,7 @@ import ru.g000sha256.schedulers.SchedulersHolder
 
 class MainHolder(
         private val adsManager: AdsManager,
+        private val useMock: Boolean,
         private val schedulersHolder: SchedulersHolder,
         view: View
 ) : RecyclerView.ViewHolder(view) {
@@ -34,7 +35,7 @@ class MainHolder(
     private fun load() {
         textView.text = "Loading..."
         val disposable = adsManager
-                .load()
+                .load(useMock)
                 .observeOn(schedulersHolder.mainDeferredScheduler)
                 .subscribe(
                         { textView.text = it.title },

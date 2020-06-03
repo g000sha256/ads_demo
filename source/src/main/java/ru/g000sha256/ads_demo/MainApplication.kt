@@ -8,8 +8,7 @@ import ru.g000sha256.schedulers.SchedulersImpl
 
 class MainApplication : Application() {
 
-    val adsManagerWithGoogle by lazy { AdsManager(false, this, schedulersHolder) }
-    val adsManagerWithMock by lazy { AdsManager(true, this, schedulersHolder) }
+    val adsManager by lazy { AdsManager(this, schedulersHolder) }
     val schedulersHolder by lazy { createSchedulersHolder() }
 
     private fun createSchedulersHolder(): SchedulersHolder {
