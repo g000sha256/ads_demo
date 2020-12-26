@@ -1,12 +1,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray_light" />
+        android:background="@color/gray_light"
+        />
 
     <CheckBox
         android:id="@+id/check_box_view"
@@ -16,12 +18,14 @@
         android:padding="16dp"
         android:text="Use mock"
         android:textColor="@color/white_87"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray_light" />
+        android:background="@color/gray_light"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
@@ -29,10 +33,12 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:clipToPadding="false"
-        android:padding="4dp" />
+        android:padding="4dp"
+        />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray_light" />
+        android:background="@color/gray_light"
+        />
 </LinearLayout>

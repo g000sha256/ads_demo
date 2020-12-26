@@ -1,16 +1,16 @@
 ext {
-    final String versionKotlin = "1.3.72"
-    final String versionSchedulers = "3.0.0"
+    final String versionKotlin = "1.4.21"
+    final String versionSchedulers = "3.0"
 
-    libraryAds = "com.google.android.gms:play-services-ads-lite:19.1.0"
+    libraryAds = "com.google.android.gms:play-services-ads-lite:19.6.0"
     libraryKotlin = "org.jetbrains.kotlin:kotlin-stdlib:$versionKotlin"
     libraryRecyclerView = "androidx.recyclerview:recyclerview:1.1.0"
-    libraryRxJava = "io.reactivex.rxjava3:rxjava:3.0.4"
+    libraryRxJava = "io.reactivex.rxjava3:rxjava:3.0.8"
     librarySchedulers = [
             android: "com.github.g000sha256.schedulers:android:$versionSchedulers",
             core   : "com.github.g000sha256.schedulers:core:$versionSchedulers",
     ]
 
-    pluginAndroid = "com.android.tools.build:gradle:4.0.0"
+    pluginAndroid = "com.android.tools.build:gradle:4.1.1"
     pluginKotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versionKotlin"
 }

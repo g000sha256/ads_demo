@@ -9,9 +9,9 @@ import com.google.android.gms.ads.formats.UnifiedNativeAd
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.core.SingleEmitter
-import ru.g000sha256.schedulers.SchedulersHolder
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
+import ru.g000sha256.schedulers.SchedulersHolder
 
 class AdsManager(private val context: Context, private val schedulersHolder: SchedulersHolder) {
 
@@ -22,9 +22,9 @@ class AdsManager(private val context: Context, private val schedulersHolder: Sch
 
     fun load(useMock: Boolean): Single<AdItem> {
         return Single
-                .create<AdItem> { if (useMock) loadFromMock(it) else loadFromGoogle(it) }
-                .subscribeOn(schedulersHolder.ioScheduler)
-                .retryWhen { it.delay(1L, TimeUnit.SECONDS, schedulersHolder.computationScheduler) }
+            .create<AdItem> { if (useMock) loadFromMock(it) else loadFromGoogle(it) }
+            .subscribeOn(schedulersHolder.ioScheduler)
+            .retryWhen { it.delay(1L, TimeUnit.SECONDS, schedulersHolder.computationScheduler) }
     }
 
     private fun createAdItem(): AdItem {
@@ -35,9 +35,9 @@ class AdsManager(private val context: Context, private val schedulersHolder: Sch
 
     private fun destroyUnifiedNativeAd(unifiedNativeAd: UnifiedNativeAd) {
         Completable
-                .fromAction { unifiedNativeAd.destroy() }
-                .subscribeOn(schedulersHolder.ioScheduler)
-                .subscribe()
+            .fromAction { unifiedNativeAd.destroy() }
+            .subscribeOn(schedulersHolder.ioScheduler)
+            .subscribe()
     }
 
     private fun loadFromMock(singleEmitter: SingleEmitter<AdItem>) {
@@ -68,17 +68,17 @@ class AdsManager(private val context: Context, private val schedulersHolder: Sch
 
         }
         val adRequest = AdRequest.Builder()
-                .build()
+            .build()
         AdLoader.Builder(context, "ca-app-pub-3940256099942544/2247696110")
-                .forUnifiedNativeAd {
-                    destroyUnifiedNativeAd(it)
-                    if (singleEmitter.isDisposed) return@forUnifiedNativeAd
-                    val adItem = createAdItem()
-                    singleEmitter.onSuccess(adItem)
-                }
-                .withAdListener(adListener)
-                .build()
-                .loadAd(adRequest)
+            .forUnifiedNativeAd {
+                destroyUnifiedNativeAd(it)
+                if (singleEmitter.isDisposed) return@forUnifiedNativeAd
+                val adItem = createAdItem()
+                singleEmitter.onSuccess(adItem)
+            }
+            .withAdListener(adListener)
+            .build()
+            .loadAd(adRequest)
     }
 
 }

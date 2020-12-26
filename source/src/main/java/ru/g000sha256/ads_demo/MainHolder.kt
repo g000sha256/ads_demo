@@ -8,10 +8,10 @@ import ru.g000sha256.ads_demo.manager.AdsManager
 import ru.g000sha256.schedulers.SchedulersHolder
 
 class MainHolder(
-        private val adsManager: AdsManager,
-        private val useMock: Boolean,
-        private val schedulersHolder: SchedulersHolder,
-        view: View
+    private val adsManager: AdsManager,
+    private val useMock: Boolean,
+    private val schedulersHolder: SchedulersHolder,
+    view: View
 ) : RecyclerView.ViewHolder(view) {
 
     private val compositeDisposable = CompositeDisposable()
@@ -35,12 +35,12 @@ class MainHolder(
     private fun load() {
         textView.text = "Loading..."
         val disposable = adsManager
-                .load(useMock)
-                .observeOn(schedulersHolder.mainDeferredScheduler)
-                .subscribe(
-                        { textView.text = it.title },
-                        {}
-                )
+            .load(useMock)
+            .observeOn(schedulersHolder.mainDeferredScheduler)
+            .subscribe(
+                { textView.text = it.title },
+                {}
+            )
         compositeDisposable.add(disposable)
     }
 

@@ -10,4 +10,5 @@
     android:paddingEnd="16dp"
     android:paddingBottom="64dp"
     android:textColor="@color/white_87"
-    android:textSize="20sp" />
+    android:textSize="20sp"
+    />

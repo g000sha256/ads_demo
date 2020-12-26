@@ -7,9 +7,9 @@ import ru.g000sha256.ads_demo.manager.AdsManager
 import ru.g000sha256.schedulers.SchedulersHolder
 
 class MainAdapter(
-        private val adsManager: AdsManager,
-        private val schedulersHolder: SchedulersHolder,
-        private val useMock: Boolean
+    private val adsManager: AdsManager,
+    private val schedulersHolder: SchedulersHolder,
+    private val useMock: Boolean
 ) : RecyclerView.Adapter<MainHolder>() {
 
     override fun getItemCount(): Int {
@@ -18,8 +18,8 @@ class MainAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
         val view = LayoutInflater
-                .from(parent.context)
-                .inflate(R.layout.main_item, parent, false)
+            .from(parent.context)
+            .inflate(R.layout.main_item, parent, false)
         return MainHolder(adsManager, useMock, schedulersHolder, view)
     }
 
